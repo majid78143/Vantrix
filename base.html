@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Vantrix{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="brand">
+      <svg width="34" height="34" viewBox="0 0 200 200" fill="none">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#22d3ee" /><stop offset="50%" stop-color="#8b5cf6" /><stop offset="100%" stop-color="#d946ef" />
+          </linearGradient>
+        </defs>
+        <path d="M100 18 L60 46 L38 30 L44 66 L20 92 L52 100 L46 138 L84 118 L100 150 L116 118 L154 138 L148 100 L180 92 L156 66 L162 30 L140 46 Z" stroke="url(#g)" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M76 78 L92 88 L76 96 Z" fill="#22d3ee"/><path d="M124 78 L108 88 L124 96 Z" fill="#22d3ee"/>
+      </svg>
+      VANTRIX
+    </a>
+    <div class="nav-links">
+      <a href="/commands">Commands</a>
+      {% if session.get('user') %}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login" class="btn-ghost">Login</a>
+      {% endif %}
+      <a href="https://discord.com/api/oauth2/authorize?client_id={{ client_id or '' }}&permissions=8&scope=bot%20applications.commands" class="btn-primary">Add to Server</a>
+    </div>
+  </nav>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">© 2026 Vantrix — Discord Automation &amp; Security</footer>
+</body>
+</html>
