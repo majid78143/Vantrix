@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard — {{ guild.name if guild else 'Vantrix' }}{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>🏆 {{ guild.name if guild else 'Server' }} Leaderboard</h1>
+  <div class="leaderboard-list">
+    {% for e in entries %}
+    <div class="leaderboard-row">
+      <span class="lb-rank">#{{ e.rank }}</span>
+      {% if e.avatar %}<img src="{{ e.avatar }}" class="lb-avatar" />{% endif %}
+      <span class="lb-name">{{ e.name }}</span>
+      <span class="lb-level">Level {{ e.level }}</span>
+      <span class="lb-xp">{{ e.xp }} XP</span>
+    </div>
+    {% else %}
+    <p class="muted">No XP data yet — start chatting!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

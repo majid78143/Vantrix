@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ guild.name if guild else 'Server' }} — Settings{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>{{ guild.name if guild else 'Server' }} — Settings</h1>
+  <div class="settings-links">
+    <a href="/dashboard/{{ settings.guild_id }}/embed-builder" class="btn-ghost">Open Embed Builder</a>
+    <a href="/leaderboard/{{ settings.guild_id }}" class="btn-ghost">View Leaderboard</a>
+  </div>
+  <form method="POST" class="settings-form">
+    <h2>Modules</h2>
+    <div class="module-grid">
+      {% for mod in modules %}
+      <label class="module-toggle">
+        <input type="checkbox" name="module_{{ mod }}" {% if settings.modules.get(mod) %}checked{% endif %} />
+        {{ mod.replace('_', ' ') | title }}
+      </label>
+      {% endfor %}
+    </div>
+    <h2>Welcome / Goodbye</h2>
+    <label>Welcome message ({{ '{user}' }}, {{ '{server}' }})</label>
+    <input type="text" name="welcome_message" value="{{ settings.welcome_message }}" />
+    <label>Goodbye message</label>
+    <input type="text" name="goodbye_message" value="{{ settings.goodbye_message }}" />
+    <h2>Public Showcase</h2>
+    <label class="module-toggle">
+      <input type="checkbox" name="showcase_opt_in" {% if settings.showcase_opt_in %}checked{% endif %} />
+      Show this server in the "Loved by servers" showcase on the homepage
+    </label>
+    <button type="submit" class="btn-primary">Save Settings</button>
+  </form>
+</section>
+{% endblock %}

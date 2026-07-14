@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Vantrix — Discord Automation & Security{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-glow"></div>
+  <svg class="hero-logo" width="160" height="160" viewBox="0 0 200 200" fill="none">
+    <defs>
+      <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#22d3ee" /><stop offset="50%" stop-color="#8b5cf6" /><stop offset="100%" stop-color="#d946ef" />
+      </linearGradient>
+    </defs>
+    <path d="M100 18 L60 46 L38 30 L44 66 L20 92 L52 100 L46 138 L84 118 L100 150 L116 118 L154 138 L148 100 L180 92 L156 66 L162 30 L140 46 Z" stroke="url(#hg)" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M76 78 L92 88 L76 96 Z" fill="#22d3ee"/><path d="M124 78 L108 88 L124 96 Z" fill="#22d3ee"/>
+  </svg>
+  <h1 class="hero-title">VANTRIX</h1>
+  <p class="hero-tag">Advanced Discord automation, moderation &amp; security — built for servers that mean business.</p>
+  <div class="hero-actions">
+    <a class="btn-primary lg" href="https://discord.com/api/oauth2/authorize?client_id={{ client_id }}&permissions=8&scope=bot%20applications.commands">Add to Server</a>
+    <a class="btn-ghost lg" href="/commands">View Commands</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num">{{ stats.servers }}</span><span class="stat-label">Servers Protected</span></div>
+    <div class="stat"><span class="stat-num">{{ stats.users }}</span><span class="stat-label">Members Guarded</span></div>
+    <div class="stat"><span class="stat-num">{{ stats.commands }}</span><span class="stat-label">Commands</span></div>
+    <div class="stat"><span class="stat-num">{{ stats.uptime }}</span><span class="stat-label">Uptime</span></div>
+  </div>
+</section>
+
+<section class="showcase">
+  <h2>Loved by servers</h2>
+  <div class="showcase-track">
+    {% for s in showcase %}
+    <div class="showcase-card">
+      {% if s.icon %}<img src="{{ s.icon }}" />{% else %}<div class="showcase-fallback">{{ s.name[0] }}</div>{% endif %}
+      <div class="showcase-name">{{ s.name }}</div>
+      <div class="showcase-members">{{ s.members }} members</div>
+    </div>
+    {% else %}
+    <p class="muted">No servers have opted into the public showcase yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="features">
+  <h2>Everything your server needs</h2>
+  <div class="feature-grid">
+    <div class="feature"><span class="feature-icon">🛡️</span><h3>Moderation &amp; Anti-Nuke</h3><p>Kick, ban, mute, warn, auto-lockdown on mass destructive actions.</p></div>
+    <div class="feature"><span class="feature-icon">📈</span><h3>Leveling &amp; XP</h3><p>Chat-based XP, levels, and public leaderboards.</p></div>
+    <div class="feature"><span class="feature-icon">🎫</span><h3>Tickets</h3><p>Button-based support tickets with private channels.</p></div>
+    <div class="feature"><span class="feature-icon">🎭</span><h3>Reaction Roles</h3><p>Self-assignable roles via emoji reactions.</p></div>
+    <div class="feature"><span class="feature-icon">👋</span><h3>Welcome &amp; Goodbye</h3><p>Custom join/leave messages per server.</p></div>
+    <div class="feature"><span class="feature-icon">💬</span><h3>Auto-Responder</h3><p>No-code keyword replies configured from the dashboard.</p></div>
+  </div>
+</section>
+
+<section class="developers">
+  <h2>Meet the Developer{{ 's' if developers|length != 1 else '' }}</h2>
+  <div class="dev-grid">
+    {% for d in developers %}
+    <div class="dev-card">
+      <img src="{{ d.avatar or 'https://cdn.discordapp.com/embed/avatars/0.png' }}" />
+      <div class="dev-name">{{ d.username or 'Vantrix Team' }}</div>
+      <div class="dev-role">{{ d.role_title or 'Developer' }}</div>
+      <p class="dev-bio">{{ d.bio or '' }}</p>
+    </div>
+    {% else %}
+    <p class="muted">Developer profiles will appear here once configured.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

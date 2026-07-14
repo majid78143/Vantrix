@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Embed Builder — Vantrix{% endblock %}
+{% block content %}
+<section class="page embed-builder" data-guild-id="{{ guild_id }}">
+  <h1>Embed Builder</h1>
+  <div class="embed-builder-grid">
+    <div class="embed-form">
+      <label>Channel</label>
+      <select id="eb-channel"></select>
+
+      <label>Title</label>
+      <input id="eb-title" />
+
+      <label>Description (type @ or # for autocomplete)</label>
+      <textarea id="eb-description" rows="4"></textarea>
+      <div id="eb-autocomplete" class="autocomplete-box hidden"></div>
+
+      <label>Author</label>
+      <input id="eb-author" />
+
+      <label>Footer</label>
+      <input id="eb-footer" />
+
+      <label>Color</label>
+      <input id="eb-color" type="color" value="#8b5cf6" />
+
+      <label>Image / GIF URL</label>
+      <input id="eb-image" placeholder="https://... .gif or .png" />
+
+      <div id="eb-fields"></div>
+      <button type="button" class="btn-ghost" onclick="addField()">+ Add Field</button>
+
+      <div class="embed-actions">
+        <button type="button" class="btn-ghost" onclick="exportJSON()">Export JSON</button>
+        <button type="button" class="btn-ghost" onclick="importJSON()">Import JSON</button>
+        <button type="button" class="btn-primary" onclick="sendEmbed()">Send to Channel</button>
+      </div>
+      <textarea id="eb-json" rows="6" class="json-box hidden"></textarea>
+    </div>
+
+    <div class="embed-preview">
+      <h3>Live Preview</h3>
+      <div class="discord-embed" id="eb-preview">
+        <div class="discord-embed-bar"></div>
+        <div class="discord-embed-body">
+          <div id="preview-author" class="discord-embed-author"></div>
+          <div id="preview-title" class="discord-embed-title"></div>
+          <div id="preview-desc" class="discord-embed-desc"></div>
+          <div id="preview-fields" class="discord-embed-fields"></div>
+          <img id="preview-image" class="discord-embed-image hidden" />
+          <div id="preview-footer" class="discord-embed-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='embed_builder.js') }}"></script>
+{% endblock %}

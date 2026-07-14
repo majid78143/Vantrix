@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Vantrix{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>Hi, {{ user.username }}</h1>
+  <p class="muted">Select a server to manage.</p>
+  <div class="guild-grid">
+    {% for g in guilds %}
+    <a class="guild-card" href="/dashboard/{{ g.id }}">
+      {% if g.icon %}<img src="{{ g.icon }}" />{% else %}<div class="showcase-fallback">{{ g.name[0] }}</div>{% endif %}
+      <div>{{ g.name }}</div>
+    </a>
+    {% else %}
+    <p class="muted">No manageable servers found. Make sure Vantrix is invited and you have Admin permission.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

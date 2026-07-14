@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Commands — Vantrix{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>Commands</h1>
+  <input id="cmd-search" placeholder="Search commands..." class="search-input" onkeyup="filterCmds()" />
+  <div class="cmd-list" id="cmd-list">
+    {% for c in commands %}
+    <div class="cmd-row">
+      <span class="cmd-name">/{{ c.name }}</span>
+      <span class="cmd-desc">{{ c.description }}</span>
+    </div>
+    {% else %}
+    <p class="muted">Bot is starting up — commands will appear once it connects to Discord.</p>
+    {% endfor %}
+  </div>
+</section>
+<script>
+function filterCmds() {
+  const q = document.getElementById('cmd-search').value.toLowerCase();
+  document.querySelectorAll('.cmd-row').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+</script>
+{% endblock %}
